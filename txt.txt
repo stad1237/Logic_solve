@@ -1,0 +1,46 @@
+<?php
+
+$admin = new admin;
+$admin->exec();
+
+
+class allayAll{
+	private $showArray;
+	private $rowSize;
+	private $lineSize;
+	function __construct($rowSize, $lineSize){
+		$this->rowSize = $rowSize;
+		$this->lineSize = $lineSize;
+	}
+	function setArray($inputArray){
+		$this->showArray = $inputArray;
+	}
+	function showArray(){
+		$showString = '';
+		for($i=0; $i < $this->rowSize; $i ++){
+			for($j=0; $j < $this->lineSize; $j ++){
+				$showString .= $this->showArray[$i][$j];
+			}
+			$showString .= "\n";
+		}
+		echo($showString);
+	}
+	function makeTestArray(){
+		$theArray = array();
+		for($i=0; $i < $this->rowSize; $i ++){
+			for($j=0; $j < $this->lineSize; $j ++){
+				$theArray[$i][$j] = $i + 2 * $j;
+			}
+		}
+		return $theArray;
+	}
+}
+
+class admin{
+	function exec(){
+		$allayAll = new allayAll(6,3);
+		$theArray = $allayAll->makeTestArray();
+		$allayAll->setArray($theArray);
+		$allayAll->showArray();
+	}
+}
