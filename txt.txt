@@ -9,7 +9,7 @@ class admin{
 		$allayAll = new allayAll(6,3);
 		$theArray = $allayAll->makeTestArray();
 		$checkLine = new checkLine($theArray);
-		$checkLine->setlowest($theArray);
+		$checkLine->setHighest($theArray);
 
 	}
 	function execArrayAll(){
@@ -75,14 +75,19 @@ class checkLine{
 			var_export($this->answerArray[$nowPoint]['lowest']);
 			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowPoint . "\n");
 		}
-
 	}
 	function setHighest($convertedArray){
-		$arrayLength = count($convertedArray);
-		for($i = 1; $i <= $arrayLength; $i++){
-			for($j = 0; $j < $convertedArray[$arrayLength - $i]; $j++){
-				$this->answerArray[$arrayLength - $i]['highest'] = $j;
+		$arrayLength = count($this->answerArray);
+		$checkingPoint = 0;
+		$comparingValue = 0;
+		for($nowPoint = 0; $nowPoint < $arrayLength; $nowPoint++){
+			if($nowPoint >= $comparingValue && $checkingPoint < count($this->convertedArray)){
+				$comparingValue += $this->convertedArray[$checkingPoint];
+				$checkingPoint += 1;
 			}
+			$this->answerArray[$nowPoint]['lowest'] = $checkingPoint;
+			var_export($this->answerArray[$nowPoint]['lowest']);
+			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowPoint . "\n");
 		}
 	}
 	function convertArray(){
