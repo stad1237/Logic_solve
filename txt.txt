@@ -78,16 +78,16 @@ class checkLine{
 	}
 	function setHighest($convertedArray){
 		$arrayLength = count($this->answerArray);
-		$checkingPoint = 0;
-		$comparingValue = 0;
+		$checkingPoint = count($this->convertedArray);
+		$comparingValue = $this->convertedArray[$checkingPoint];
 		for($nowPoint = 0; $nowPoint < $arrayLength; $nowPoint++){
-			if($nowPoint >= $comparingValue && $checkingPoint < count($this->convertedArray)){
+			if($nowPoint >= $comparingValue && $checkingPoint > 0){
+				$checkingPoint -= 1;
 				$comparingValue += $this->convertedArray[$checkingPoint];
-				$checkingPoint += 1;
 			}
-			$this->answerArray[$nowPoint]['lowest'] = $checkingPoint;
-			var_export($this->answerArray[$nowPoint]['lowest']);
-			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowPoint . "\n");
+			$this->answerArray[$arrayLength - $nowPoint]['lowest'] = $checkingPoint;
+			var_export($this->answerArray[$arrayLength - $nowPoint]['lowest']);
+			echo("checkinghigh" . $checkingPoint . " sum" . $comparingValue . " now " . ($arrayLength - $nowPoint) . "\n");
 		}
 	}
 	function convertArray(){
