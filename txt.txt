@@ -4,6 +4,23 @@ $admin = new admin;
 $admin->exec();
 
 
+class admin{
+	function exec(){
+		$allayAll = new allayAll(6,3);
+		$theArray = $allayAll->makeTestArray();
+		$checkLine = new checkLine($theArray);
+		$checkLine->setlowest($theArray);
+
+	}
+	function execArrayAll(){
+		$allayAll = new allayAll(6,3);
+		$theArray = $allayAll->makeTestArray();
+		$allayAll->setArray($theArray);
+		$allayAll->showArray();
+	}
+}
+
+
 class allayAll{
 	private $showArray;
 	private $rowSize;
@@ -25,6 +42,7 @@ class allayAll{
 		}
 		echo($showString);
 	}
+	//テスト用配列
 	function makeTestArray(){
 		$theArray = array();
 		for($i=0; $i < $this->rowSize; $i ++){
@@ -35,12 +53,48 @@ class allayAll{
 		return $theArray;
 	}
 }
+class checkLine{
+	private $problemArray;
+	private $convertedArray;
+	private $answerArray;
+	function __construct($problemArray){
+		$this->problemArray = $problemArray;
+		$this->convertedArray = $this->convertArray();
+		$this->answerArray = $this->makeAnswerArray(10, 10);
+	}
+	function setlowest(){
+		$arrayLength = count($this->answerArray);
+		$checkingPoint = 0;
+		$comparingValue = 0;
+		for($nowPoint = 0; $nowPoint < $arrayLength; $nowPoint++){
+			if($nowPoint >= $comparingValue && $checkingPoint < count($this->convertedArray)){
+				$comparingValue += $this->convertedArray[$checkingPoint];
+				$checkingPoint += 1;
+			}
+			$this->answerArray[$nowPoint]['lowest'] = $checkingPoint;
+			var_export($this->answerArray[$nowPoint]['lowest']);
+			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowPoint . "\n");
+		}
 
-class admin{
-	function exec(){
-		$allayAll = new allayAll(6,3);
-		$theArray = $allayAll->makeTestArray();
-		$allayAll->setArray($theArray);
-		$allayAll->showArray();
+	}
+	function setHighest($convertedArray){
+		$arrayLength = count($convertedArray);
+		for($i = 1; $i <= $arrayLength; $i++){
+			for($j = 0; $j < $convertedArray[$arrayLength - $i]; $j++){
+				$this->answerArray[$arrayLength - $i]['highest'] = $j;
+			}
+		}
+	}
+	function convertArray(){
+		return array(2,1,5);
+	}
+	function makeAnswerArray($rowSize, $lineSize){
+		$theArray = array();
+		for($i=0; $i < $rowSize; $i ++){
+			for($j=0; $j < $lineSize; $j ++){
+				$theArray[$i][$j] = array();
+			}
+		}
+		return $theArray;
 	}
 }
