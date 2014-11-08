@@ -57,7 +57,7 @@ class allayAll{
 class checkLine{
 	private $problemArrays;
 	private $convertedArrays;
-	private $answerArray;
+	private $answerArrays;
 
 	private $checkingArray;
 
@@ -65,11 +65,11 @@ class checkLine{
 		$this->problemArrays = $problemArrays;
 		$initArrays = new initArrays;
 		$this->convertedArrays = $initArrays->convertProblemArrays($this->problemArrays);
-		$this->answerArray = $initArrays->initAnswerArray(10, 10);
+		$this->answerArrays = $initArrays->initAnswerArrays(10, 10);
 		$this->checkingArray = $this->convertArray($targetarray = array());
 	}
 	public function setLowest(){
-		$arrayLength = count($this->answerArray);
+		$arrayLength = count($this->answerArrays);
 		$checkingPoint = 0;
 		$comparingValue = $this->checkingArray[$checkingPoint];
 		for($nowCount = 0; $nowCount < $arrayLength; $nowCount++){
@@ -77,22 +77,23 @@ class checkLine{
 				$checkingPoint += 1;
 				$comparingValue += $this->checkingArray[$checkingPoint];
 			}
-			$this->answerArray[$nowCount]['lowest'] = $checkingPoint;
+			$this->answerArrays[$nowCount]['lowest'] = $checkingPoint;
 			echo("  " . $nowCount . "is" . $checkingPoint . " ");
 		}
 		echo("setlow \n");
 	}
 	public function setHighest(){
-		$arrayLength = count($this->answerArray);
+		$arrayLength = count($this->answerArrays);
 		$checkingPoint = count($this->checkingArray) - 1;
 		$comparingValue = $this->checkingArray[$checkingPoint];
+		$maxPoint = $arrayLength - 1;
 		for($nowCount = 0; $nowCount < $arrayLength; $nowCount++){
 			if($nowCount >= $comparingValue && $checkingPoint > 0){
 				$checkingPoint -= 1;
 				$comparingValue += $this->checkingArray[$checkingPoint];
 			}
-			$this->answerArray[$arrayLength - $nowCount]['lowest'] = $checkingPoint;
-			echo("  " . ($arrayLength - $nowCount) . "is" . $checkingPoint . " ");
+			$this->answerArrays[$maxPoint - $nowCount]['lowest'] = $checkingPoint;
+			echo("  " . ($maxPoint - $nowCount) . "is" . $checkingPoint . " ");
 		}
 		echo("sethigh \n");
 	}
@@ -126,13 +127,13 @@ class initArrays{
 		}
 		// var_export($convertedArray);
 	}
-	public function initAnswerArray($rowSize, $lineSize){
-		$answerArray = array();
+	public function initAnswerArrays($rowSize, $lineSize){
+		$answerArrays = array();
 		for($i=0; $i < $rowSize; $i ++){
 			for($j=0; $j < $lineSize; $j ++){
-				$answerArray[$i][$j] = array();
+				$answerArrays[$i][$j] = array();
 			}
 		}
-		return $answerArray;
+		return $answerArrays;
 	}
 }
