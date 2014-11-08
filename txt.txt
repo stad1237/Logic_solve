@@ -60,7 +60,8 @@ class checkLine{
 	function __construct($problemArray){
 		$this->problemArray = $problemArray;
 		$this->convertedArray = $this->convertArray();
-		$this->answerArray = $this->initAnswerArray(10, 10);
+		$initArrays = new initArrays;
+		$this->answerArray = $initArrays->initAnswerArray(10, 10);
 	}
 	function setLowest(){
 		$arrayLength = count($this->answerArray);
@@ -94,6 +95,9 @@ class checkLine{
 	function convertArray(){
 		return array(2,1,5);
 	}
+}
+
+class initArrays{
 	function initAnswerArray($rowSize, $lineSize){
 		$answerArray = array();
 		for($i=0; $i < $rowSize; $i ++){
