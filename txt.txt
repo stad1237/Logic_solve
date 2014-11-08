@@ -60,47 +60,47 @@ class checkLine{
 	function __construct($problemArray){
 		$this->problemArray = $problemArray;
 		$this->convertedArray = $this->convertArray();
-		$this->answerArray = $this->makeAnswerArray(10, 10);
+		$this->answerArray = $this->initAnswerArray(10, 10);
 	}
-	function setlowest(){
+	function setLowest(){
 		$arrayLength = count($this->answerArray);
 		$checkingPoint = 0;
 		$comparingValue = $this->convertedArray[$checkingPoint];
-		for($nowPoint = 0; $nowPoint < $arrayLength; $nowPoint++){
-			if($nowPoint >= $comparingValue && $checkingPoint + 1 < count($this->convertedArray)){
+		for($nowCount = 0; $nowCount < $arrayLength; $nowCount++){
+			if($nowCount >= $comparingValue && $checkingPoint + 1 < count($this->convertedArray)){
 				$checkingPoint += 1;
 				$comparingValue += $this->convertedArray[$checkingPoint];
 			}
-			$this->answerArray[$nowPoint]['lowest'] = $checkingPoint;
-			var_export($this->answerArray[$nowPoint]['lowest']);
-			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowPoint . "\n");
+			$this->answerArray[$nowCount]['lowest'] = $checkingPoint;
+			var_export($this->answerArray[$nowCount]['lowest']);
+			echo("checking" . $checkingPoint . " sum" . $comparingValue . " now " . $nowCount . "\n");
 		}
 
 	}
-	function setHighest($convertedArray){
+	function setHighest(){
 		$arrayLength = count($this->answerArray);
-		$checkingPoint = count($this->convertedArray);
+		$checkingPoint = count($this->convertedArray) - 1;
 		$comparingValue = $this->convertedArray[$checkingPoint];
-		for($nowPoint = 0; $nowPoint < $arrayLength; $nowPoint++){
-			if($nowPoint >= $comparingValue && $checkingPoint > 0){
+		for($nowCount = 0; $nowCount < $arrayLength; $nowCount++){
+			if($nowCount >= $comparingValue && $checkingPoint > 0){
 				$checkingPoint -= 1;
 				$comparingValue += $this->convertedArray[$checkingPoint];
 			}
-			$this->answerArray[$arrayLength - $nowPoint]['lowest'] = $checkingPoint;
-			var_export($this->answerArray[$arrayLength - $nowPoint]['lowest']);
-			echo("checkinghigh" . $checkingPoint . " sum" . $comparingValue . " now " . ($arrayLength - $nowPoint) . "\n");
+			$this->answerArray[$arrayLength - $nowCount]['lowest'] = $checkingPoint;
+			var_export($this->answerArray[$arrayLength - $nowCount]['lowest']);
+			echo("checkinghigh" . $checkingPoint . " sum" . $comparingValue . " now " . ($arrayLength - $nowCount) . "\n");
 		}
 	}
 	function convertArray(){
 		return array(2,1,5);
 	}
-	function makeAnswerArray($rowSize, $lineSize){
-		$theArray = array();
+	function initAnswerArray($rowSize, $lineSize){
+		$answerArray = array();
 		for($i=0; $i < $rowSize; $i ++){
 			for($j=0; $j < $lineSize; $j ++){
-				$theArray[$i][$j] = array();
+				$answerArray[$i][$j] = array();
 			}
 		}
-		return $theArray;
+		return $answerArray;
 	}
 }
