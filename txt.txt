@@ -113,7 +113,15 @@ class initArrays{
 				array_push($convertedArray["row"][$i], $problemArray["row"][$i][$j]);
 			}
 		}
-		// $columnLength = count($problemArray["column"]);
+		$columnLength = count($problemArray["column"]);
+		for($i = 0; $i < $columnLength; $i++){
+			$arrayLength = count($problemArray["column"][$i]);
+			$convertedArray["column"][$i][0] = $problemArray["column"][$i][0];
+			for($j = 1; $j < $arrayLength; $j++){
+				array_push($convertedArray["column"][$i], 1);
+				array_push($convertedArray["column"][$i], $problemArray["column"][$i][$j]);
+			}
+		}
 		var_export($convertedArray);
 		var_export($problemArray);
 	}
