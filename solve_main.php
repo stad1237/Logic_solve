@@ -1,10 +1,5 @@
 <?php
 
-
-$admin = new admin;
-$admin->exec();
-
-
 class admin{
 	private $problemArrays = array("column" => array(array(5),array(0),array(1,3),array(1,1),array(3)),
 			"row" => array(array(1,1),array(1),array(1,1,1),array(1,1,1),array(5)));
