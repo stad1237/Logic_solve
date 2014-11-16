@@ -12,6 +12,7 @@ class admin{
 		$checkLine = new checkLine($this->problemArrays);
 		$checkLine->setlowest();
 		$checkLine->setHighest();
+		$checkLine->determineValue();
 	}
 	public function execArrayAll(){
 		$allayAll = new allayAll(6,3);
@@ -60,13 +61,14 @@ class checkLine{
 	private $answerArrays;
 
 	private $checkingArray;
+	private $targetarray = array();
 
 	public function __construct($problemArrays){
 		$this->problemArrays = $problemArrays;
 		$initArrays = new initArrays;
 		$this->convertedArrays = $initArrays->convertProblemArrays($this->problemArrays);
 		$this->answerArrays = $initArrays->initAnswerArrays(10, 10);
-		$this->checkingArray = $this->convertArray($targetarray = array());
+		$this->checkingArray = $this->convertArray($this->targetarray);
 	}
 	public function setLowest(){
 		$arrayLength = count($this->answerArrays);
@@ -92,10 +94,19 @@ class checkLine{
 				$checkingPoint -= 1;
 				$comparingValue += $this->checkingArray[$checkingPoint];
 			}
-			$this->answerArrays[$maxPoint - $nowCount]['lowest'] = $checkingPoint;
+			$this->answerArrays[$maxPoint - $nowCount]['highest'] = $checkingPoint;
 			echo("  " . ($maxPoint - $nowCount) . "is" . $checkingPoint . " ");
 		}
 		echo("sethigh \n");
+	}
+	public function determineValue(){
+		$arrayLength = count($this->answerArrays);
+		for($i = 0; $i < $arrayLength; $i++){
+			if($this->answerArrays[$i]['lowest'] == $this->answerArrays[$i]['highest']){
+				$this->answerArrays[$i]['value'] = $this->answerArrays[$i]['lowest'];
+			}
+		}
+		var_export($this->answerArrays);
 	}
 	//const_now
 	public function convertArray($targetArray){
